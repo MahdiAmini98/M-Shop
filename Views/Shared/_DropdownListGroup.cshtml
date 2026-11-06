@@ -1,0 +1,18 @@
+﻿@using M_Shop.Data.Repository
+@inject IGroupRepository _GroupRepository;
+
+
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle text-light" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        دسته بندی محصولات
+    </a>
+    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        @foreach (var item in _GroupRepository.GetAllCategories())
+        {
+            <a class="dropdown-item text-dark" href="/Group/@item.Id/@item.Name">@item.Name</a>
+        }
+
+
+
+    </div>
+</li>

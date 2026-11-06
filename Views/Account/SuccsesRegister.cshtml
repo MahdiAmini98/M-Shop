@@ -1,0 +1,22 @@
+﻿@model M_Shop.Models.View_Models.RegisterViewModel
+@{
+    ViewData["Title"] = "SuccseRegister";
+}
+
+
+
+
+
+
+<div class="container">
+        <div class="row my-5">
+            <div class="jumbotron">
+                <h1>ثبت نام با موفقیت انجام شد</h1>
+                <p class="lead">   کاربر عزیز با ایمیل "@Model.Email"   ممنون از ثبت نام شما میتوانید از طریق دکمه زیر وارد سایت شوید
+                </p>
+                <hr class="my-4">
+               
+                <a class="btn btn-primary btn-lg" role="button" asp-controller="Account" asp-action="Login">ورود به سایت</a>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,28 @@
+﻿
+@model M_Shop.Models.View_Models.DetailViewModel
+@{
+    ViewData["Title"] = "کالا" + Model.Product.Name;
+}
+
+
+<div class="container my-5 mx-auto">
+    
+    <div class="border border-secondary">
+        
+        <img src=  "/imag/@(Model.Product.Id).jpg" class="img-fluid figure-img text-center d-flex align-items-center justify-content-center" style="width: 100%; height: 80%;"/>
+        
+        <h3 class="font-weight-bold text-center my-3 text-dark">@Model.Product.Name</h3>
+        <p class="text-left text-justify my-2 mx-3"style="font-size: 16px; line-height: 50px;">
+            @Model.Product.Description
+        </p>
+       
+        <div> <span class="badge badge-dark my-2 text-right mx-3 ">قیمت : @(Model.Product.Item.Price.ToString("N0"))</span></div>
+        <button class="btn text-white btn-dark mx-3 my-4">
+            <a class="btn text-white" asp-controller="Home" asp-action="AddToCart" asp-route-itemId="@Model.Product.ItemId">افزودن به سبد خرید</a>
+        </button>
+    </div>
+    
+
+</div>
+
+

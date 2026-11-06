@@ -1,0 +1,45 @@
+﻿@using Microsoft.EntityFrameworkCore.Query.Internal
+@model Order
+@{
+    ViewData["Title"] = "سبد خرید";
+}
+
+
+
+
+@if (Model != null)
+{
+    <table class="table table-striped my-5">
+        <thead class="thead-dark">
+        <tr>
+            <th>کالا</th>
+            <th>تعداد</th>
+            <th>قیمت</th>
+            <th></th>
+        </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>@item.Product.Name</td>
+                <td>@item.Count</td>
+                    <td>@((item.Count * item.Price).ToString("N0")) تومان</td>
+                    <td>
+                    <a class="btn btn-outline-dark " asp-action="RemoveToCart" asp-route-detailId="@item.DetailId">حذف</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+
+    </table>
+    <h5 class="h4 my-2">جمع کل : @Model.OrderDetails.Sum(s => s.Count * s.Price).ToString("N0") تومان</h5>
+
+    <button class="btn btn-dark btn-lg my-3" ><a class="text-decoration-none text-white" asp-controller="payment" asp-action="Payment">پرداخت</a></button>
+
+}
+else
+{
+    <div class="alert alert-dark" >فاکتوری نیست</div>
+}

@@ -1,0 +1,194 @@
+﻿@using M_Shop.Models.PaymentModels
+@model MockBankModel
+@{
+    ViewData["Title"] = "درگاه پرداخت تستی";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4><i class="fas fa-credit-card"></i> درگاه پرداخت تستی</h4>
+                </div>
+                <div class="card-body">
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">
+                            @TempData["Error"]
+                        </div>
+                    }
+
+                    <div class="bank-header text-center mb-4">
+                        <div class="bank-logo">
+                            <i class="fas fa-university fa-3x text-primary"></i>
+                        </div>
+                        <h5 class="mt-2">بانک تستی MShop</h5>
+                    </div>
+
+                    <div class="payment-info mb-4">
+                        <div class="row">
+                            <div class="col-6">
+                                <strong>مبلغ:</strong>
+                            </div>
+                            <div class="col-6 text-left">
+                                <span class="text-success">@Model.Amount.ToString("N0") تومان</span>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-6">
+                                <strong>شرح:</strong>
+                            </div>
+                            <div class="col-6 text-left">
+                                <small>@Model.Description</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form asp-asp-controller="Payment" asp-action="ProcessPayment" method="post">
+                        <input type="hidden" name="orderId" value="@Model.OrderId" />
+                        <input type="hidden" name="authority" value="@Model.Authority" />
+
+                        <div class="form-group">
+                            <label for="cardNumber">شماره کارت:</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-credit-card"></i></span>
+                                </div>
+                                <input type="text" class="form-control" id="cardNumber" name="cardNumber"
+                                       placeholder="6037-9911-1111-1111" maxlength="19" required>
+                            </div>
+                            <small class="form-text text-muted">شماره کارت تستی: 6104-3389-1607-5845</small>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="expireDate">تاریخ انقضا:</label>
+                                <input type="text" class="form-control" id="expireDate"
+                                       placeholder="01/14" value="01/99" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="cvv2">CVV2:</label>
+                                <input type="text" class="form-control" id="cvv2" name="cvv2"
+                                       placeholder="123" maxlength="3" required>
+                                <small class="form-text text-muted">CVV2 تستی: 123</small>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">رمز دوم (اینترنتی):</label>
+                            <input type="password" class="form-control" id="password" value="123456" readonly>
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-success btn-lg">
+                                <i class="fas fa-lock"></i> پرداخت
+                            </button>
+                            <a href="/" class="btn btn-outline-secondary">انصراف</a>
+                        </div>
+                    </form>
+
+                    <div class="mt-4 p-3 bg-light rounded">
+                        <h6>راهنمای پرداخت تستی:</h6>
+                        <ul class="small">
+                            <li>شماره کارت: 6037991111111111</li>
+                            <li>CVV2: 123</li>
+                            <li>رمز دوم: 123456</li>
+                            <li>این یک درگاه تستی است و هیچ پرداختی انجام نمی‌شود</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById('cardNumber').addEventListener('input', function(e) {
+            var input = e.target;
+            var value = input.value.replace(/\D/g, ''); // حذف همه غیر اعداد
+
+            // محدود کردن به 16 رقم
+            if (value.length > 16) {
+                value = value.substr(0, 16);
+            }
+
+            // فرمت کردن با خط تیره
+            var formatted = '';
+            for (var i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formatted += '-';
+                }
+                formatted += value[i];
+            }
+
+            input.value = formatted;
+        });
+
+        // اضافه کردن اعتبارسنجی هنگام ارسال فرم
+        document.querySelector('form').addEventListener('submit', function(e) {
+            var cardNumber = document.getElementById('cardNumber').value;
+            var cleanCardNumber = cardNumber.replace(/\D/g, '');
+
+            if (cleanCardNumber.length !== 16) {
+                e.preventDefault();
+                alert('شماره کارت باید 16 رقم باشد');
+                return false;
+            }
+
+            var cvv2 = document.getElementById('cvv2').value;
+            if (cvv2.length !== 3) {
+                e.preventDefault();
+                alert('CVV2 باید 3 رقم باشد');
+                return false;
+            }
+        });
+
+        // محدودیت CVV2 به عدد
+        document.getElementById('cvv2').addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '').substr(0, 3);
+        });
+
+
+                // اعتبارسنجی بلادرنگ
+        document.getElementById('cardNumber').addEventListener('blur', function() {
+            var cardNumber = this.value.replace(/\D/g, '');
+            var errorElement = document.getElementById('cardError');
+
+            if (!errorElement) {
+                errorElement = document.createElement('div');
+                errorElement.id = 'cardError';
+                errorElement.className = 'text-danger small mt-1';
+                this.parentNode.appendChild(errorElement);
+            }
+
+            if (cardNumber.length !== 16) {
+                errorElement.textContent = 'شماره کارت باید 16 رقم باشد';
+                this.classList.add('is-invalid');
+            } else {
+                errorElement.textContent = '';
+                this.classList.remove('is-invalid');
+            }
+        });
+
+        document.getElementById('cvv2').addEventListener('blur', function() {
+            var cvv2 = this.value;
+            var errorElement = document.getElementById('cvvError');
+
+            if (!errorElement) {
+                errorElement = document.createElement('div');
+                errorElement.id = 'cvvError';
+                errorElement.className = 'text-danger small mt-1';
+                this.parentNode.appendChild(errorElement);
+            }
+
+            if (cvv2.length !== 3) {
+                errorElement.textContent = 'CVV2 باید 3 رقم باشد';
+                this.classList.add('is-invalid');
+            } else {
+                errorElement.textContent = '';
+                this.classList.remove('is-invalid');
+            }
+        });
+    </script>
+}

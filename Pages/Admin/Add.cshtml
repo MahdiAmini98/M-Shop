@@ -1,0 +1,47 @@
+﻿@page
+@model M_Shop.Pages.Admin.AddModel
+@{
+}
+<h1>افزودن کالا</h1>
+
+<form method="post" enctype="MultiPart/form-Data">
+    
+    
+    <dl class="dl-horizontal">
+        <div class="my-3"> <dd><label asp-for="AddEditeProductViewModel.Name"></label></dd>
+            <dt>
+                <input asp-for="AddEditeProductViewModel.Name" class="form-control"/>
+                <span asp-validation-for="AddEditeProductViewModel"></span>
+            </dt></div>
+       
+        <div class="my-3"><dd><label asp-for="AddEditeProductViewModel.Description"></label></dd>
+            <dt>
+                <textarea asp-for="AddEditeProductViewModel.Name"> </textarea>
+                <span asp-validation-for="AddEditeProductViewModel"></span>
+            </dt></div>
+        
+        <div class="my-3"><dd><label asp-for="AddEditeProductViewModel.Price"></label></dd>
+            <dt>
+                <input asp-for="AddEditeProductViewModel.Price" class="form-control"/>
+                <span asp-validation-for="AddEditeProductViewModel"></span>
+            </dt></div>
+        
+        <div class="my-3"> <dd><label asp-for="AddEditeProductViewModel.QuantityStoke"></label></dd>
+            <dt>
+                <input asp-for="AddEditeProductViewModel.QuantityStoke" class="form-control"/>
+                <span asp-validation-for="AddEditeProductViewModel"></span>
+            </dt></div>
+       
+        <div class="my-3"> <dd><label asp-for="AddEditeProductViewModel.Picture"></label></dd>
+            <dt>
+                <input asp-for="AddEditeProductViewModel.Picture"/>
+                <span asp-validation-for="AddEditeProductViewModel.Picture"></span>
+            </dt></div>
+
+             <div class="my-3"> <dd></dd>
+                 <dt>
+                     <input  value="ثبت" type="submit" class="btn btn-dark"/>
+                 </dt>
+             </div>
+    </dl>
+</form>

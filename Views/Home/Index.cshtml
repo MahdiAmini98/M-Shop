@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "فروشگاه من";
+}
+
+@model IEnumerable<Product>
+
+<div class="">
+    
+    
+    <div class="row my-5">
+        
+        
+        @foreach (var item in Model)
+        {
+            <partial model="@item" name="_Index"/>
+        }
+        
+        
+        
+        
+
+    </div>
+    
+    
+    
+    
+    
+    
+    
+    
+
+</div>

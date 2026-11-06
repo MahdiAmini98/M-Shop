@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "پرداخت موفق";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg">
+                <div class="card-header bg-success text-white text-center">
+                    <h4><i class="fas fa-check-circle"></i> پرداخت موفق</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle fa-5x text-success"></i>
+                    </div>
+                    <h5 class="text-success">پرداخت شما با موفقیت انجام شد</h5>
+                    <p class="mt-3">کد پیگیری: <strong>@ViewBag.Code</strong></p>
+                    <p class="text-muted">این کد را برای پیگیری نگهداری کنید</p>
+                    <p class="text-muted">جهت هماهنگی ارسال  مرسوله و فیلم های دوره های آموزشی خریداری شده به ایمیل ثبت نامی شما ، ایمیلی جهت هماهنگی ارسال خواهد شد.a
+                        با تشکر
+                    </p>
+
+                    <div class="mt-4">
+                        <a href="/" class="btn btn-primary">بازگشت به صفحه اصلی</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

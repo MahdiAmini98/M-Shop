@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "_Index";
+}
+
+@model Product
+
+
+
+<div class="col-10 col-lg-4 my-3">
+                
+    <div class="card">
+                    
+        <img src="/imag/@(Model.Id).jpg" class="card-img-top card-img" />
+                    
+        <div class="card-body">
+            <h5 class="card-title text-nowrap">@Model.Name</h5>
+            <p class="card-text text-justify text-left text-black-50">@Model.Name</p>
+        </div>
+        <div class="card-footer">
+                        
+            <button class="btn btn-link btn-dark text-decoration-none">
+                <a class="text-decoration-none text-light"asp-controller="Home" asp-action="Detail" asp-route-id="@Model.Id" >جزییات محصول</a>
+            </button>
+                      
+        </div>
+                    
+
+    </div>
+                
+
+</div>

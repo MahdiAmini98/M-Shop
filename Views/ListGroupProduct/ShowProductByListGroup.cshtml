@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Product>
+@{
+    ViewData["Title"] = ViewData["GroupName"];
+}
+
+<div class="container">
+    <div class="row my-5">
+        <h2 class="text-justify text-center text-dark ">  @ViewData["GroupName"]   </h2>
+
+
+        <hr / style="height: 1rem; width: 130rem; display: block; solid-color: black; display: block">
+        
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <partial model="@item" name="_Index" />
+            }
+
+        </div>
+
+    </div>
+</div>

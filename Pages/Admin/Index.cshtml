@@ -1,0 +1,41 @@
+﻿@page
+@model M_Shop.Pages.Admin.IndexModel
+@{
+}
+
+<link href="~/css/Index.css" rel="stylesheet" />
+
+
+<h1 class="display-3">لیست کالاها</h1>
+<hr />
+<p>
+    <a asp-page="Add" class="myButton btn btn-dark text-white">افزودن کالا</a>
+</p>
+<table>
+    <thead>
+        <tr>
+            <th>تصویر</th>
+            <th>نام</th>
+            <th>قیمت</th>
+            <th>دستورات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Products)
+        {
+            <tr>
+                <td>
+                    <img src="/imag/@(item.Id).jpg" style="max-width: 200px; border: 1px solid gray;padding: 3px" />
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>@item.Item.Price</td>
+                <td>
+                    <a asp-page="Edit" asp-route-id="@item.Id" class="text-light font-weight-bold text-decoration-none mx-3 btn   btn-dark btn-outline-dark ">ویرایش</a>
+                    <a asp-page="Delete" asp-route-id="@item.Id" class="text-light font-weight-bold text-decoration-none mx-3 btn  btn-dark btn-outline-dark ">حذف</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
